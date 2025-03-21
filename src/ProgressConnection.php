@@ -25,14 +25,10 @@ class ProgressConnection extends Connection
     protected function getDefaultQueryGrammar()
     {
         $defaultGrammar = new ProgressGrammer(
+            $this,
             $this->config
         );
 
-        // set date format if any specified
-        if (array_key_exists('date_format', $this->config)) {
-            $defaultGrammar->setDateFormat($this->config['date_format']);
-        }
-
-        return $this->withTablePrefix($defaultGrammar);
+        return $defaultGrammar;
     }
 }
