@@ -5,6 +5,7 @@ namespace Noxxie\Database\Progress\Query\Grammer;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Grammars\Grammar;
 use Illuminate\Support\Str;
+use Illuminate\Database\Connection;
 
 class ProgressGrammer extends Grammar
 {
@@ -14,10 +15,12 @@ class ProgressGrammer extends Grammar
     protected $schema = null;
 
     /**
+     * @param  \Illuminate\Database\Connection  $connection
      * @param array $config
      */
-    public function __construct(array $config)
+    public function __construct(Connection $connection, array $config)
     {
+        $this->connection = $connection;
         // We are setting the schema here in order we can prefix it before a table name.
         // Check if we end with a dot if not add the dot at the end.
         if (isset($config['schema'])) {
